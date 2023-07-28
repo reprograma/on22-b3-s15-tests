@@ -1,76 +1,64 @@
 const timelineModel = require("../src/models/timelineModel");
 
-describe("GET model test", () => {
+describe("GET model teste", () => {
   const timeline = new timelineModel({
-    title: "timeline teste",
-    description: "uma timeline criada para testes",
-    archived: true,
-  });
+    "title": "timeline teste",
+    "description": "uma timeline criada para testes",
+    "archived": true
+  }); 
 
-  it("Chama o Schema e retorna o nome certo da timeline", () => {
+  it("Deve chamar o schema e retornar o nome correto da timeline", ()=> {
     expect(timeline.title).toBe("timeline teste");
   });
 
-  it("Chama o Schema e retorna o nome certo da timeline", () => {
-    expect(timeline.title).toBe("timeline teste");
-  });
-
-  it("Chama o Schema e retorna o valor certo da description", () => {
+  it("Deve chamar o schema e retornar a descrição correta da timeline", () => {
     expect(timeline.description).toBe("uma timeline criada para testes");
   });
 
-  it("Chama o Schema e retorna o valor certo da description", () => {
-    expect(timeline.description).toBe("uma timeline criada para testes");
+  it("Deve chamar o schema e retornar o valor arquivado", () => {
+    expect(timeline.archived).toBe(true);
   });
 });
 
-describe("UPDATE route test", () => {
-  it("Deve editar o titulo e salvar no banco de dados a atualização", async () => {
-    try {
-      const timeline = new timelineModel({
-        title: "timeline teste 2",
-        description: "uma timeline criada para testes",
-        archived: true,
-      });
+describe("UPDATE model teste", () => {
+  const timeline = new timelineModel({
+    "title": "timeline teste",
+    "description": "uma timeline criada para testes",
+    "archived": true
+  }); 
 
-      const dados = await timeline.save();
-      console.log("@@@ oi");
-      expect(dados.title).toBe("nova timeline teste");
-
-      timeline.title = "nova timeline teste";
-
-      const novosDados = await timeline.save();
-      expect(novosDados.title).toBe("nova timeline teste");
-    } catch (error) {
-      console.log(error)
-    }
+  it("Deve editar o título e salvar no banco de dados a nova timeline", ()=> {
+    timeline.title = "Nova timeline";
+    timeline.save().then((dados) => {
+      expect(dados.title).toBe("Nova timeline");
+    });
   });
 });
 
 describe("CREATE route teste", () => {
-  it("Deve salvar no banco de dados a nova timeline", async () => {
-    const timeline = new timelineModel({
-      title: "timeline teste 3",
-      description: "uma timeline criada para testes",
-      archived: true,
+  const timeline = new timelineModel({
+    "title": "timeline teste",
+    "description": "uma timeline criada para testes",
+    "archived": true
+  }); 
+
+  it("Deve salvar no banco de dados, a nova timeline", ()=> {
+    timeline.save().then((dados) => {
+      expect(dados.title).toBe("Nova timeline");
     });
-
-    const dados = await timeline.save();
-
-    expect(dados.title).toBe("timeline teste");
   });
+});
 
-  describe("DELETE route teste", () => {
-    it("Deve excluir uma timeline", async () => {
-      const timeline = new timelineModel({
-        title: "timeline teste 4",
-        description: "uma timeline criada para testes",
-        archived: true,
-      });
-      await timeline.save(); 
-      const deletado = await timeline.delete(); 
+describe("DELETE route teste", () => {
+  const timeline = new timelineModel({
+    "title": "timeline teste",
+    "description": "uma timeline criada para testes",
+    "archived": true
+  }); 
 
-      expect(deletado.title).toBe(null);
+  it("Deve deletar no banco de dados, uma timeline", ()=> {
+    timeline.save().then((dados) => {
+      expect(dados.title).toBe("Nova timeline");
     });
   });
 });

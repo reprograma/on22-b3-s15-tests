@@ -38,6 +38,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.1",
     "swagger-autogen": "^2.21.5",
-    "swagger-ui-express": "^4.5.0"
+    "swagger-ui-express": "^4.6.3"
   }
 }
